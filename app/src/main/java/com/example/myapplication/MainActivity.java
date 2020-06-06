@@ -40,24 +40,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        showList();
+
         MakeApiCall();
         
             }
 
-    private void showList() {
+    private void showList(List<Film> filmList) {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-
-        List<String> input = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            input.add("Test" + i);
-        }// define an adapter
-        mAdapter = new ListAdapter(input);
+        mAdapter = new ListAdapter(filmList);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -80,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
                    public void onResponse(Call<RestFilmResponse> call, Response<RestFilmResponse> response) {
                        if(response.isSuccessful() && response.body() != null){
                            List<Film> filmList = response.body().getResults();
-                           Toast.makeText(getApplicationContext(), "API Success", Toast.LENGTH_SHORT).show();
-
+                            showList(filmList);
                        } else {
                              //  showError();
                            Toast.makeText(getApplicationContext(), "API Error2", Toast.LENGTH_SHORT).show();
