@@ -6,6 +6,15 @@ public class Film {
     private String title;
     private String episode_id;
     private String release_date;
+    private String image;
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
+    }
 
     public String getTitle() {
         return title;
